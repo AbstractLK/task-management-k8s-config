@@ -1,0 +1,33 @@
+nameOverride: auth-service
+replicaCount: 1
+
+image:
+  repository: abstraxlk/task-management-auth-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 4001
+  targetPort: 4001
+
+env:
+  port: "4001"
+  corsOrigin: http://taskmanager.local
+  secretName: task-management-secrets
+  mongodbUriKey: auth-mongodb-uri
+  jwtSecretKey: jwt-secret
+
+ingress:
+  enabled: true
+  className: nginx
+  host: taskmanager.local
+  path: /api/auth(/|$)(.*)
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi

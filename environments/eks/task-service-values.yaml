@@ -1,0 +1,28 @@
+nameOverride: task-service
+replicaCount: 2
+
+image:
+  repository: abstraxlk/task-management-task-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+env:
+  port: "4002"
+  corsOrigin: https://app.example.com
+  secretName: task-management-secrets
+  mongodbUriKey: task-mongodb-uri
+  jwtSecretKey: jwt-secret
+
+ingress:
+  enabled: true
+  className: nginx
+  host: api.example.com
+  path: /api/tasks(/|$)(.*)
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 750m
+    memory: 512Mi

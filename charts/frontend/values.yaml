@@ -1,0 +1,26 @@
+nameOverride: frontend
+replicaCount: 1
+
+image:
+  repository: abstraxlk/task-management-frontend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  host: taskmanager.local
+  path: /
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi

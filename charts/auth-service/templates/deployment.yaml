@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.nameOverride }}
+  labels:
+    app: {{ .Values.nameOverride }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.nameOverride }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.nameOverride }}
+    spec:
+      containers:
+        - name: {{ .Values.nameOverride }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+          env:
+            - name: AUTH_PORT
+              value: {{ .Values.env.port | quote }}
+            - name: AUTH_CORS_ORIGIN
+              value: {{ .Values.env.corsOrigin | quote }}
+            - name: AUTH_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.env.secretName }}
+                  key: {{ .Values.env.mongodbUriKey }}
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.env.secretName }}
+                  key: {{ .Values.env.jwtSecretKey }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.service.targetPort }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.service.targetPort }}
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

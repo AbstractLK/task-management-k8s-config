@@ -1,0 +1,33 @@
+nameOverride: task-service
+replicaCount: 1
+
+image:
+  repository: abstraxlk/task-management-task-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 4002
+  targetPort: 4002
+
+env:
+  port: "4002"
+  corsOrigin: http://taskmanager.local
+  secretName: task-management-secrets
+  mongodbUriKey: task-mongodb-uri
+  jwtSecretKey: jwt-secret
+
+ingress:
+  enabled: true
+  className: nginx
+  host: taskmanager.local
+  path: /api/tasks(/|$)(.*)
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi

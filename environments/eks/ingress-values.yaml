@@ -1,0 +1,3 @@
+host: api.example.com
+ingressClassName: nginx
+frontendDelivery: s3-cloudfront

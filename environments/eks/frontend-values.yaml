@@ -1,0 +1,21 @@
+nameOverride: frontend
+replicaCount: 0
+
+image:
+  repository: abstraxlk/task-management-frontend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: false
+  className: nginx
+  host: app.example.com
+  path: /
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi

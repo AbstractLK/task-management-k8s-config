@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: task-management-frontend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/AbstractLK/task-management-k8s-config.git
+    targetRevision: main
+    path: charts/frontend
+    helm:
+      valueFiles:
+        - ../../environments/eks/frontend-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: task-management
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
