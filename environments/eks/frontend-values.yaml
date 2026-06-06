@@ -3,7 +3,7 @@ replicaCount: 0
 
 image:
   repository: abstraxlk/task-management-frontend
-  tag: 2
+  tag: 3
   pullPolicy: IfNotPresent
 
 ingress:
