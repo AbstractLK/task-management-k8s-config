@@ -6,8 +6,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
-    - host: {{ .Values.ingress.host }}
-      http:
+    - http:
         paths:
           - path: {{ .Values.ingress.path }}
             pathType: Prefix
@@ -16,4 +15,7 @@ spec:
                 name: {{ .Values.nameOverride }}
                 port:
                   number: {{ .Values.service.port }}
+      {{- if .Values.ingress.host }}
+      host: {{ .Values.ingress.host }}
+      {{- end }}
 {{- end }}

@@ -8,7 +8,7 @@ image:
 
 env:
   port: "4001"
-  corsOrigin: https://app.example.com
+  corsOrigin: ""
   secretName: task-management-secrets
   mongodbUriKey: auth-mongodb-uri
   jwtSecretKey: jwt-secret
@@ -16,7 +16,7 @@ env:
 ingress:
   enabled: true
   className: nginx
-  host: api.example.com
+  host: ""
   path: /api/auth(/|$)(.*)
 
 resources:

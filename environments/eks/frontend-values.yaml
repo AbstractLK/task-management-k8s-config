@@ -9,7 +9,7 @@ image:
 ingress:
   enabled: false
   className: nginx
-  host: app.example.com
+  host: ""
   path: /
 
 resources:
