@@ -13,7 +13,7 @@ service:
 
 env:
   port: "4002"
-  corsOrigin: http://taskmanager.local
+  corsOrigin: ""
   secretName: task-management-secrets
   mongodbUriKey: task-mongodb-uri
   jwtSecretKey: jwt-secret
@@ -21,7 +21,7 @@ env:
 ingress:
   enabled: true
   className: nginx
-  host: taskmanager.local
+  host: ""
   path: /api/tasks(/|$)(.*)
 
 resources:

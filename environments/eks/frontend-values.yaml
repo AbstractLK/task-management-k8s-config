@@ -1,5 +1,5 @@
 nameOverride: frontend
-replicaCount: 0
+replicaCount: 1
 
 image:
   repository: abstraxlk/task-management-frontend
@@ -7,7 +7,7 @@ image:
   pullPolicy: IfNotPresent
 
 ingress:
-  enabled: false
+  enabled: true
   className: nginx
   host: ""
   path: /

@@ -1,3 +1,2 @@
 host: ""
 ingressClassName: nginx
-frontendDelivery: s3-cloudfront
